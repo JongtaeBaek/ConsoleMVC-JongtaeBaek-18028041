@@ -1,10 +1,22 @@
-1. 개발 전략
+1. 개발 과정
    1. PoC 개발
-      1. MVC 스켈레톤 코드: Model/Controller/View 패키지 구조와 역할 분리 완성
+      1. MVC 스켈레톤 코드: Model/Controller/View 패키지 구조와 역할 분리 완성 ✅
+         - git repository: https://github.com/JongtaeBaek/ConsoleMVC-JongtaeBaek-18028041.git
+         - 완료 내용
+           - model/: Sample, Order(OrderStatus), ProductionJob/ProductionQueue
+           - view/: menu_view, sample_view, order_view, monitoring_view
+           - controller/: sample, order, monitoring, production, release
+           - main.py: 메뉴 라우팅 루프
+           - 단위 테스트: 63개, 커버리지 100%
+           - 개발 의존성: pytest, pytest-cov
       2. 데이터 영속성 처리: JSON(데이터 형식) 데이터를 저장/불러오는 구조 구현, 콘솔 시스템 포함
+         - git repository: https://github.com/JongtaeBaek/DataPersistence-JongtaeBaek-18028041.git
       3. 데이터 모니터링 Tool: 현재 저장된 데이터 상태를 콘솔에서 실시간 조회할 수 있는 관리자 도구
+         - git repository: https://github.com/JongtaeBaek/DataMonitor-JongtaeBaek-18028041.git
       4. Dummy 데이터 생성 Tool: Test를 위한 Dummy Data를 생성하는 도구, Dummy Data는 연결된 DB에 추가
+         - git repository: https://github.com/JongtaeBaek/DummyDataGenerator-JongtaeBaek-18028041.git
    2. 프로젝트 개발
+      - git repository: https://github.com/JongtaeBaek/SampleOrderSystem-JongtaeBaek-18028041.git
 2. 개발 배경
 여기가상의반도체회사"S-Semi" 가 있습니다.
 이회사는다양한종류의반도체시료(Sample)를 생산하여연구소, 팹리스(Fabless) 업체, 대학 연구실 등의 고객에게
