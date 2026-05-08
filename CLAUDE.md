@@ -15,21 +15,16 @@ Git 저장소: https://github.com/JongtaeBaek/ConsoleMVC-JongtaeBaek-18028041.gi
 - 개발 의존성: `pytest`, `pytest-cov`
 
 ```bash
-# 가상환경 활성화
 .venv\Scripts\activate
-
-# 개발 의존성 설치
 pip install pytest pytest-cov
 
-# 앱 실행
 python main.py
 
-# 테스트 실행
+# 테스트 실행 (커버리지 100% 강제 + HTML 리포트 자동 산출)
 pytest
-
-# 커버리지 포함 테스트 (100% 강제)
-pytest --cov=. --cov-report=term-missing --cov-fail-under=100
 ```
+
+HTML 커버리지 리포트: `htmlcov/index.html` (`pytest.ini`의 `addopts`에 고정)
 
 ## 구현된 구조
 
@@ -100,6 +95,8 @@ RESERVED → (승인+재고충분) → CONFIRMED → RELEASE
 **목표**: 코드 커버리지 100%
 
 **프레임워크**: `pytest` + `pytest-cov`
+
+**리포트**: `pytest` 실행 시 `htmlcov/index.html` 자동 생성 (`addopts` 고정)
 
 **테스트 위치**: `tests/` 디렉터리
 
