@@ -11,11 +11,24 @@ Git 저장소: https://github.com/JongtaeBaek/ConsoleMVC-JongtaeBaek-18028041.gi
 ## 개발 환경
 
 - Python 3.14 (`.venv` 가상환경)
-- 외부 의존성 없음 (표준 라이브러리만 사용)
+- 앱 의존성: 표준 라이브러리만 사용
+- 개발 의존성: `pytest`, `pytest-cov`
 
 ```bash
+# 가상환경 활성화
 .venv\Scripts\activate
+
+# 개발 의존성 설치
+pip install pytest pytest-cov
+
+# 앱 실행
 python main.py
+
+# 테스트 실행
+pytest
+
+# 커버리지 포함 테스트 (100% 강제)
+pytest --cov=. --cov-report=term-missing --cov-fail-under=100
 ```
 
 ## 구현된 구조
@@ -81,6 +94,40 @@ RESERVED → (승인+재고충분) → CONFIRMED → RELEASE
 - `samples: list[Sample]` — 1.1.2에서 `samples.json`으로 영속화 예정
 - `orders: list[Order]` — 1.1.2에서 `orders.json`으로 영속화 예정
 - `ProductionQueue` — 별도 영속화 없이 주문 상태(`PRODUCING`)로 복원 가능
+
+## 테스트 전략
+
+**목표**: 코드 커버리지 100%
+
+**프레임워크**: `pytest` + `pytest-cov`
+
+**테스트 위치**: `tests/` 디렉터리
+
+```
+tests/
+├── test_model_sample.py
+├── test_model_order.py
+├── test_model_production.py
+├── test_view_menu.py
+├── test_view_sample.py
+├── test_view_order.py
+├── test_view_monitoring.py
+├── test_controller_sample.py
+├── test_controller_order.py
+├── test_controller_monitoring.py
+├── test_controller_production.py
+├── test_controller_release.py
+└── test_main.py
+```
+
+**레이어별 테스트 방식**
+
+- **Model**: 필드 초기화, Enum 값, `ProductionQueue` 메서드(`enqueue`/`dequeue`/`peek`/`all`/`is_empty`) 직접 호출
+- **View**: `unittest.mock.patch`로 `builtins.input` / `builtins.print` 모킹 — 입력값 주입 및 출력 검증
+- **Controller**: View 함수와 `input`을 모킹하여 Controller 메서드의 상태 변화(`status`, `stock`, `queue`) 검증
+- **main.py**: 메뉴 루프의 각 분기(`"0"`~`"6"`)를 `side_effect` 리스트로 순서 제어하여 커버
+
+**커버리지 제외 대상**: 없음 (`# pragma: no cover` 사용 금지)
 
 ## 메인 메뉴 구조
 
